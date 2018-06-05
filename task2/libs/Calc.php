@@ -41,8 +41,9 @@ class Calc
 		return $this->b * $this->b;
 	}
 
-	public function getSqrt($var){
-		return sqrt($var);
+	public function getSqrt(){
+		if (0 == $this->b) return SQRT_CONFIG;
+		else return sqrt($this->a);
 	}
 
 	public function memRead(){

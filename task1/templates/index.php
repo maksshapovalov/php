@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta charset="utf-8">
 <title>File Upload</title>
 <style type="text/css">
 table {
