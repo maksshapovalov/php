@@ -41,7 +41,8 @@ function checkDir($direction)
 		else return false;
 }
 
-function deleteFile($direction, $file){
+function deleteFile($direction, $file)
+{
 	if (checkDir($direction))
 	{	
 		if (is_file($direction.$file))
@@ -54,7 +55,8 @@ function deleteFile($direction, $file){
 	else return DIR_ERROR_CONFIG;
 }
 
-function getFiles($direction){
+function getFiles($direction)
+{
 	if (is_dir($direction))
 	{
 		$files = array_slice(scandir($direction),2);
@@ -63,11 +65,13 @@ function getFiles($direction){
 	else return false;
 }
 
-function getFullPath($file){
+function getFullPath($file)
+{
 	return dirname(__file__) . DIR_CONFIG."$file";
 }
 
-function getFileSize($file){
+function getFileSize($file)
+{
 	if(!file_exists($file)) return false;
 	$filesize = filesize($file);
 	if($filesize > 1024)
