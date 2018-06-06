@@ -6,14 +6,14 @@ $direction = dirname(__file__) . DIR_CONFIG;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" ) 
 {
-	$message = uploadFile('download_file',$direction);
+	$message = upload_file('download_file',$direction);
 }
 if ($_GET['delete']!='')
 {
-	$message = deleteFile($direction, $_GET['delete']);
+	$message = delete_file($direction, $_GET['delete']);
 }
 
-$files = getFiles($direction);
+$files = get_files($direction);
 include_once('templates/index.php');
 
 ?>

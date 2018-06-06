@@ -1,9 +1,9 @@
 <?php
-function uploadFile($filename, $direction)
+function upload_file($filename, $direction)
 {
 	if ($_POST)
 	{
-		if (checkDir($direction))
+		if (check_dir($direction))
 		{
 			if (UPLOAD_ERR_OK == $_FILES["$filename"]['error']) 
 			{
@@ -35,15 +35,15 @@ function uploadFile($filename, $direction)
 	else return POST_ERROR_CONFIG;
 }
 
-function checkDir($direction)
+function check_dir($direction)
 {
 	if (is_dir($direction) && is_writable($direction)) return true;
 		else return false;
 }
 
-function deleteFile($direction, $file)
+function delete_file($direction, $file)
 {
-	if (checkDir($direction))
+	if (check_dir($direction))
 	{	
 		if (is_file($direction.$file))
 		{
@@ -55,22 +55,22 @@ function deleteFile($direction, $file)
 	else return DIR_ERROR_CONFIG;
 }
 
-function getFiles($direction)
+function get_files($direction)
 {
 	if (is_dir($direction))
 	{
 		$files = array_slice(scandir($direction),2);
-		return  array_combine($files,array_map(getFileSize, array_map(getFullPath, $files)));
+		return  array_combine($files,array_map(get_file_size, array_map(get_full_path, $files)));
 	}
 	else return false;
 }
 
-function getFullPath($file)
+function get_full_path($file)
 {
 	return dirname(__file__) . DIR_CONFIG."$file";
 }
 
-function getFileSize($file)
+function get_file_size($file)
 {
 	if(!file_exists($file)) return false;
 	$filesize = filesize($file);
