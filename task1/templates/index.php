@@ -33,6 +33,7 @@ th:first-child, td:first-child {
 
 <input type="file" id="download_file" name="download_file">
 <input type="submit" value="Upload">
+<input type="hidden" name="check" value="sent">
 </form>
 
 <?php if ($message):?>
