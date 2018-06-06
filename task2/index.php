@@ -16,9 +16,9 @@ $div = $calc->divide();
 $percent = $calc->percent();
 $square = $calc->square($b);
 $sqrt = $calc->getSqrt($a);
-$calc->memAdd($a);
+$calc->memAdd();
 $memAdd = $calc->memRead();
-$calc->memSub($b);
+$calc->memSub();
 $memSub = $calc->memRead();
 $mem = $calc->memClear();
 
