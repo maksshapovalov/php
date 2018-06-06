@@ -47,8 +47,8 @@ function deleteFile($direction, $file)
 	{	
 		if (is_file($direction.$file))
 		{
-			unlink($direction.$file);
-			return DELETE_SUCCESS_CONFIG;
+			if (unlink($direction.$file)) return DELETE_SUCCESS_CONFIG;
+			else return DELETE_FAIL_CONFIG;
 		}
 		else return DELETE_FAIL_CONFIG;
 	}
