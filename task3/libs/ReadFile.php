@@ -3,6 +3,8 @@ class ReadFile
 {
 	private $file;
 	private $fileSize;
+	private $stringNum;
+	private $charNum;
 	
 	function __construct ()
 	{
@@ -13,7 +15,7 @@ class ReadFile
 	{
 		if (is_readable ($fileDir))
 		{
-			$this->file = file($fileDir);
+			if (!$this->file = file($fileDir)) return FAIL_ERROR_CONFIG;
 			$this->fileSize = count ($this->file);
 			return true;
 		}
@@ -25,20 +27,37 @@ class ReadFile
 		return $this->file;
 	}
 	
-	public function getByString($num)
+	public function getByString($stringNum)
 	{
-		$this->getInt($num);
-		if ($num != 0 && $num <= $this->fileSize){
-			return $this->file[$num-1];
-		}
+		if ($this->stringNumValid($stringNum))	return $this->file[$this->stringNum - 1];
 		else return STRING_ERROR_CONFIG;
 	}
-	
-	private function getInt($str)
+
+	private function stringNumValid($stringNum)
 	{
-		return (int)$str;
+		$this->stringName = (int)$stringNume;
+		
+		if ($this->stringNum != 0 && $this->stringNum <= $this->fileSize) return true;
+		else return false;
+	}
+	
+	public function getByChar($stringNum, $charNum)
+	{
+ 		$charNum = (int)$charNum;
+		if (($charNum != 0) && ($cahrNum <= count($this->getByString($stringNum))))
+			return $this->getByString($this->stringNum)[$charNum];
+		else return STRING_ERROR_CONFIG;
 	}
 
+	public function fileByString()
+	{
+		//array_map(
+	}
+
+	private function returnData($data)
+	{
+		return $data;
+	}
 	
 	
 }

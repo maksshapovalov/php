@@ -34,6 +34,8 @@ th:first-child, td:first-child {
 <?=$message;?>
 <?php endif;?>
 
-
+<?=$str;?>
+</br>
+<?=$char;?>
 </body>
 </html>
