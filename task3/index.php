@@ -21,8 +21,7 @@ if (($message = $file->setFile($filePath)) === true)
 	$file->setByChar($chrReplace);
 	$new_char = $file->getByChar();
 	$new_text = $file->getFile();
-	
-	$file->saveChenges();
+	$message = $file->saveChenges(dirname(__FILE__));
 }
 include_once('templates/index.php');
 

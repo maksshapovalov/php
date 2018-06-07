@@ -17,12 +17,18 @@ class ReadFile
 	{
 		if (is_readable ($fileDir))
 		{
-			if (!$this->file = file($fileDir, FILE_SKIP_EMPTY_LINES)) return FAIL_ERROR_CONFIG;
+			if (!$this->file = file($fileDir, FILE_SKIP_EMPTY_LINES))
+			{
+				return FAIL_ERROR_CONFIG;
+			}
 			$this->fileSize = count ($this->file);
 			array_walk($this->file, create_function('&$str', '$str = trim($str);'));
 			return true;
 		}
-		else return FAIL_ERROR_CONFIG;
+		else 
+		{
+			return FAIL_ERROR_CONFIG;
+		}
 	}
 	
 	public function setStringNum ($num)
@@ -32,8 +38,10 @@ class ReadFile
 			$this->stringNum = 1;
 			return NUM_ERROR_CONFIG;
 		}
-		else 
+		else
+		{
 			return true;
+		}
 	}
 	
 	public function setCharNum ($num)
@@ -44,14 +52,18 @@ class ReadFile
 			return NUM_ERROR_CONFIG;
 		}
 		else 
+		{
 			return true;
+		}
 	}
 	
 	public function returnNum ($int)
 	{
 		$intval = intval($int);
 		if (strval($intval) != $int || $intval < 1)
+		{
 			return false;
+		}
 		return $intval;
 	}
 	
@@ -62,8 +74,14 @@ class ReadFile
 	
 	public function &getByString()
 	{
-		if ($this->stringNum <= $this->fileSize) return $this->file[$this->stringNum - 1];
-		else return STRING_ERROR_CONFIG;
+		if ($this->stringNum <= $this->fileSize) 
+		{
+			return $this->file[$this->stringNum - 1];
+		}
+		else 
+		{
+			return STRING_ERROR_CONFIG;
+		}
 	}
 
 	public function getByChar()
@@ -72,10 +90,18 @@ class ReadFile
 		if (STRING_ERROR_CONFIG != $str)
 		{
 			if ($this->charNum <= strlen($str))
+			{
 				return $str[$this->charNum-1];
-			else return CHAR_ERROR_CONFIG;
+			}
+			else 
+			{
+				return CHAR_ERROR_CONFIG;
+			}
 		}
-		else return STRING_ERROR_CONFIG;
+		else 
+		{
+			return STRING_ERROR_CONFIG;
+		}
 	}
 
 	public function setByString($strReplace)
@@ -93,16 +119,30 @@ class ReadFile
 			$str[$this->charNum-1] = strval($chrReplace);
 			return true;
 		}
-		else return CHAR_ERROR_CONFIG;
-	}
-	public function saveChenges()
-	{
-		file_put_contents('new_file.txt', implode("\r", $this->file));
+		else 
+		{
+			return CHAR_ERROR_CONFIG;
+		}
 	}
 	
-	function __destruct()
+	public function saveChenges($dir)
 	{
-		file_put_contents('new_file.txt', $this->file);
+	
+		if (is_writable($dir))
+		{
+			if (file_put_contents($dir.'/new_file.txt', implode("\n", $this->file))) 
+			{
+				return true;
+			}
+			else
+			{
+				return PERMISSION_CONFIG;
+			}
+		}
+		else
+		{
+			return PERMISSION_CONFIG;
+		}
 	}
 }
 ?>
