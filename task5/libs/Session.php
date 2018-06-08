@@ -13,11 +13,7 @@ class Session implements iWorkData
 		}
 		else
 		{
-			if ('error_message' != $key)
-			{
-				$this->saveData('error_message', SESSION_KEY_ERROR_CONFIG);
-			}
-			return false;
+			return SESSION_KEY_ERROR_CONFIG;
 		}
 	}
 	public function deleteData($key)
@@ -46,6 +42,11 @@ class Session implements iWorkData
 			return false;
 		}
 		
+	}
+	
+	function __destruct ()
+	{
+		session_abort();
 	}
 }
 ?>
