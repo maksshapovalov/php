@@ -1,5 +1,5 @@
 <?php
 
-define(TEMPLATE, 'templates/index.php');
+define('TEMPLATE', 'templates/index.php');
 
 

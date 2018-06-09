@@ -12,10 +12,10 @@ class View
 
 	public function addToReplace($mArray)
 	{
-	  foreach($mArray as $key=>$val)
-	   {
+		foreach($mArray as $key=>$val)
+		{
 			$this->forRender[$key] = $val;
-	   }
+		}
 	}
 
 	public function templateRender()

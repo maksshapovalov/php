@@ -4,8 +4,6 @@
 	  <link rel="stylesheet" href="css/style.css" type="text/css"/>
 </head>
 <body>
-<div><h2>Contact Form</h2></div>
-<div style="color: #FF0000; font-size: 15px;"><strong>%ERRORS%</strong></div>
 <div id="w">
     <h1>Sent letter</h1>
     <form id="contactform" name="contact" method="post" action="">

@@ -1,16 +1,25 @@
 <?php 
 
 class Model
-{ 
-   public function __construct()
-   {
+{
+	private $templateArray;
+	
+	public function __construct()
+	{
+		$this->templateArray = array();
+	}
+	
 
-   }
-   	
 	public function getArray()
-   {	    
-		return array('%TITLE%'=>'Contact Form', '%ERRORS%'=>'Empty field');	
-   }
+	{	    
+		return $this->templateArray;
+		//return array('%TITLE%'=>'Contact Form', '%ERRORS%'=>'Empty field');	
+	}
+	
+	public function setField ($key, $val)
+	{
+		$this->templateArray[$key] = $val;
+	}
 	
 	public function checkForm()
 	{

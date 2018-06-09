@@ -28,13 +28,17 @@ class Controller
 			{
 				$this->model->sendEmail();
 			}
+			$this->model->setField('%TITLE%', 'Contact Form');
+			$this->model->setField('%ERRORS%', '');
 			$mArray = $this->model->getArray();		
 	        $this->view->addToReplace($mArray);	
 		}	
 			    
 		private function pageDefault()
 		{   
-		   $mArray = $this->model->getArray();		
-	       $this->view->addToReplace($mArray);			   
+			$this->model->setField('%TITLE%', 'Contact Form');
+			$this->model->setField('%ERRORS%', '');	
+			$mArray = $this->model->getArray();		
+			$this->view->addToReplace($mArray);	
 		}				
 }
