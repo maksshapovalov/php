@@ -24,21 +24,36 @@ class Controller
 		
 		private function pageSendMail()
 		{
+			$this->model->setField('%MAILERROR%', '');
 			if($this->model->checkForm() === true)
 			{
-				$this->model->sendEmail();
+				if (!$this->model->sendEmail())
+				{
+					$this->model->setField('%MAILERROR%', 'Mail failed');
+				}
+				else
+				{
+					$this->model->setField('%MAILERROR%', 'Mail sent succesful');
+				}
 			}
-			$this->model->setField('%TITLE%', 'Contact Form');
-			$this->model->setField('%ERRORS%', '');
+			var_dump($_POST);
 			$mArray = $this->model->getArray();		
 	        $this->view->addToReplace($mArray);	
 		}	
-			    
+		
 		private function pageDefault()
 		{   
 			$this->model->setField('%TITLE%', 'Contact Form');
-			$this->model->setField('%ERRORS%', '');	
+			$this->model->setField('%NAME_ERROR%', '');	
+			$this->model->setField('%EMAIL_ERROR%', '');	
+			$this->model->setField('%SUBJECT_ERROR%', '');	
+			$this->model->setField('%MESSAGE_ERROR%', '');	
+			$this->model->setField('%MAILERROR%', '');
 			$mArray = $this->model->getArray();		
 			$this->view->addToReplace($mArray);	
-		}				
+		}
+
+		
+		
+		
 }
