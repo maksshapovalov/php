@@ -3,7 +3,15 @@
 	<title>%TITLE%</title>
 	  <link rel="stylesheet" href="css/style.css" type="text/css"/>
 </head>
-<body>
+<script language="javascript" type="text/javascript">
+function dateInput()
+	{
+	var myDate = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+	document.forms[0].date.value = myDate;
+	}
+</script>
+</head>
+<body onLoad = "dateInput()">
 <div id="w">
     <h1>Sent letter</h1>
 	%MAILERROR%
@@ -32,6 +40,7 @@
         <label for="message">Message <span class="req">*</span></label>
         <textarea name="message" id="message" class="txtarea" tabindex="4">%MESSAGE_VALUE%</textarea>
       </div>
+	  <input id="date" name="time" type="hidden" value=''>
       <div class="center">
         <input type="submit" id="submitbtn" tabindex="5" value="Send">
       </div>

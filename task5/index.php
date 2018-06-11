@@ -19,11 +19,11 @@ $session->deleteData('name');
 $getSessionNameEnd = $session->getData('name');
 unset($session);
 
+$getCookieNameStart = $cookie->getData('name');
 $cookie->saveData('name','Maksim');
 $getCookieName = $cookie->getData('name');
-
-//$cookie->deleteData('name');
+$cookie->deleteData('name');
+$getCookieNameEnd = $cookie->getData('name');
 
 include_once('templates/index.php');
-
 ?>

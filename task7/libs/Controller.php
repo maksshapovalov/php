@@ -36,7 +36,7 @@ class Controller
 					$this->model->setField('%MAILERROR%', 'Mail sent succesful');
 				}
 			}
-			var_dump($_POST);
+			$this->model->setField('%TITLE%', 'Contact Form');
 			$mArray = $this->model->getArray();		
 	        $this->view->addToReplace($mArray);	
 		}	

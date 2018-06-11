@@ -47,6 +47,10 @@ class Model
 		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->setField('%EMAIL_ERROR%', "<div class=\"error\">Email isn't correct</div>");
 		}
+		if (strlen($_POST['message']) > MESSAGE_LENGTH)
+		{
+			$this->setField('%MESSAGE_ERROR%', "<div class=\"error\">Message must be shorter</div>");
+		}
 		if ($this->templateArray['%NAME_ERROR%'] != '' 
 		|| $this->templateArray['%EMAIL_ERROR%'] != ''
 		|| $this->templateArray['%SUBJECT_ERROR%'] != ''
@@ -83,7 +87,11 @@ class Model
 		$headers = 'From: '. $_POST['email'] . "\r\n" .
 				'Reply-To: '. $_POST['email'] . "\r\n" .
 				'X-Mailer: PHP/' . phpversion();
-
-		return mail(ADMIN_MAIL_CONFIG, $_POST['subject'], $_POST['message'], $headers);
+		$message = "Name: ".$_POST["name"]."\r\n";
+		$message .= $_POST["message"]."\r\n";
+		$message .= "Client IP: ".$_SERVER['REMOTE_ADDR']."\r\n";
+		$message .= "Client time: ".$_POST["time"]."\r\n";
+		
+		return mail(ADMIN_MAIL_CONFIG, $_POST['subject'], $message, $headers);
 	}		
 }
