@@ -22,11 +22,8 @@
 				</div>
 			</div>
 		</form>
-	<?php if (isset($data['message'])): ?>
-		<div class="alert alert-danger" role="alert">
-			<?=$data['message']?>
-		</div>
-	<?php endif; ?>
+	
+	
 	<?php include $content_view; ?>
 	</div>
 	

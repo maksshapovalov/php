@@ -14,14 +14,22 @@ class Controller
 			{	
 				if ($this->model->checkForm())
 				{
-					$html = $this->model->getSearchResult($_POST['search']);
+					$html = $this->model->getSearchResult($_POST['search']);					
 				}
 				$this->view->render('result.php', 'index.php', $html);
 			}
 			else
 			{
-				$this->pageDefault();	
-			}	
+				if(isset($_POST['html']))
+				{
+					file_put_contents('google_v2.txt', $_POST['html']);
+				}
+				else
+				{
+					$this->pageDefault();	
+				}
+			}
+				
 	    }	
 		
 		
