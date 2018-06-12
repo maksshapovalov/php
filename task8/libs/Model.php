@@ -42,6 +42,7 @@ class Model
 		{
 			return $response['errors'];
 		}
+		//$response['html'] = file_get_contents('https://www.google.com/search?q='.$text.'&oq='.$text);
 		file_put_contents('google.txt', $response['html']);
 		return $this->getSearch($response['html']);
 	}
@@ -50,7 +51,7 @@ class Model
 	{
 		$error_page = array();
 		$ch = curl_init();
-		//curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0");   
+		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0)");   
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // Автоматом идём по редиректам
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Не проверять SSL сертификат
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); // Не проверять Host SSL сертификата
@@ -78,9 +79,15 @@ class Model
 	private function getSearch($page)
 	{
 		$crawler = $this->crawler($page);
-		foreach ($crawler as $domElement) {
-			var_dump($domElement->nodeName);
-		};
+		return $crawler
+			->filter('div.g')
+			->each(function (crawler $divG) {
+				return [
+					'href_title' => $divG->filter('a')->text(),
+					'href' => $divG->filter('a')->attr('href'),
+					'cite' => $divG->filter('span')->text()
+				];
+			});
 	}
 
 	
