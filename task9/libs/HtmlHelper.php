@@ -43,4 +43,37 @@ class HtmlHelper
 		return $table;
 	}
 	
+	public static function getList ($type, $array)
+	{
+		$list = '<'.$type.'>';
+		foreach ($array as $value)
+		{
+			if (is_array($value))
+			{
+				$list .= '<'.$type.'>';
+				foreach ($value as $valueNew)
+				{
+					$list .= '<li>'.$valueNew.'</li>';
+				}
+				$list .= '</'.$type.'>';
+			}
+			else
+			{
+				$list .= '<li>'.$value.'</li>';
+			}
+		}
+		$list .= '</'.$type.'>';
+		return $list;
+	}
+	
+	public static function getDescriptionList($array)
+	{
+		$list = '<dl>';
+		foreach ($array as $key=>$value)
+		{
+			$list .= '<dt>'.$key.'</dt><dd>'.$value.'</dd>';
+		}
+		$list .= '</dl>';
+		return $list;
+	}
 }

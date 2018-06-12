@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>HtmlHelper</title>
-	  <link rel="stylesheet" href="css/style.css" type="text/css"/>
+	<meta charset="utf-8">
 </head>
 
 </head>
@@ -16,7 +16,10 @@
 </form>
 <p>Table</p>
 %TABLE%
-%UL-OL%
-%DL-DT-DD%
+<p>List</p>
+%UL%
+%OL%
+<p>Description List</p>
+%DLDTDD%
 </body>
 </html>
