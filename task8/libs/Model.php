@@ -37,13 +37,14 @@ class Model
 	
 	public function getSearchResult($text)
 	{
-		$response = $this->curlGetContents('https://www.google.com/search?q='.$text.'&oq='.$text);
+		/* $response = $this->curlGetContents('https://www.google.com/search?q='.$text.'&oq='.$text."&cr=countryRU");
 		if ('' == $response['errors'])
 		{
 			return $response['errors'];
 		}
-		//$response['html'] = file_get_contents('https://www.google.com/search?q='.$text.'&oq='.$text);
-		file_put_contents('google.txt', $response['html']);
+		
+		file_put_contents('google.txt', $response[ 'html']); */
+		$response['html'] = file_get_contents('google.txt');
 		return $this->getSearch($response['html']);
 	}
 	
@@ -84,8 +85,8 @@ class Model
 			->each(function (crawler $divG) {
 				return [
 					'href_title' => $divG->filter('a')->text(),
-					'href' => $divG->filter('a')->attr('href'),
-					'cite' => $divG->filter('span')->text()
+					'href' => $divG->filter('a')->attr('href'),	
+					'cite' => $divG->filter('div[style="white-space:nowrap"]')
 				];
 			});
 	}
