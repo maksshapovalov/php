@@ -22,9 +22,9 @@ class Model
 		return $this->data;
 	}
 	
-	public function checkForm()
+	public function checkForm($field)
 	{
-		if ($_POST['search'] != '')
+		if ($field != '')
 		{
 			return true;
 		}
@@ -35,14 +35,12 @@ class Model
 		}
 	}
 	
-	public function getSearchResult($text)
+	public function getSearchResult($request)
 	{
-		$response = $this->curlGetContents('https://www.google.com/search?q='.$text.'&oq='.$text."&cr=countryRU");
-		if ('' == $response['errors'])
-		{
-			return $response['errors'];
-		}
-		return $this->getSearch($response['html']);
+		$request = urlencode($request);
+		$this->data['response'] = $this->curlGetContents('https://www.google.com/search?q='.$request.'&oq='.$request."&cr=countryRU");
+		$this->data['search'] = $this->getSearch($this->data['response']['html']);
+		return true;
 	}
 	
 	private function curlGetContents($page_url) 

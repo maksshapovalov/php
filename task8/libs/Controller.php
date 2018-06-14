@@ -12,11 +12,11 @@ class Controller
 				
 			if(isset($_POST['search']))
 			{	
-				if ($this->model->checkForm())
+				if ($this->model->checkForm($_POST['search']))
 				{
-					$html = $this->model->getSearchResult($_POST['search']);					
+					$this->model->getSearchResult($_POST['search']);					
 				}
-				$this->view->render('result.php', 'index.php', $html);
+				$this->view->render('result.php', 'index.php', $this->model->getData());
 			}
 			else
 			{
