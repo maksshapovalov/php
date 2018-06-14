@@ -37,14 +37,11 @@ class Model
 	
 	public function getSearchResult($text)
 	{
-		/* $response = $this->curlGetContents('https://www.google.com/search?q='.$text.'&oq='.$text."&cr=countryRU");
+		$response = $this->curlGetContents('https://www.google.com/search?q='.$text.'&oq='.$text."&cr=countryRU");
 		if ('' == $response['errors'])
 		{
 			return $response['errors'];
 		}
-		
-		file_put_contents('google.txt', $response[ 'html']); */
-		$response['html'] = file_get_contents('google.txt');
 		return $this->getSearch($response['html']);
 	}
 	
@@ -81,13 +78,30 @@ class Model
 	{
 		$crawler = $this->crawler($page);
 		return $crawler
-			->filter('div.g')
-			->each(function (crawler $divG) {
-				return [
-					'href_title' => $divG->filter('a')->text(),
-					'href' => $divG->filter('a')->attr('href'),	
-					'cite' => $divG->filter('div[style="white-space:nowrap"]')
-				];
+			->filter('#ires div.g')
+			->each(function (crawler $divG) 
+			{
+				$result['href_title']= $divG->filter('a')->text();
+				$result['href'] = $divG->filter('a')->attr('href');
+				$class = $divG->attr('class');
+				if ($class!=='g')
+				{
+					return false;
+				}
+				if (stripos($result['href'], 'search?q=')!==false)
+				{
+					return false;
+				}
+				$result['href'] = 'http://www.google.com/url'.stristr ($result['href'], '?url=');
+				if (count($divG->filter('cite'))) 
+				{
+					$result['cite'] = $divG->filter('cite')->text();
+				}
+				if (count($divG->filter('span'))) 
+				{
+					$result['span'] = preg_replace('/\s+/', ' ', trim($divG->filter('span')->last()->text()));
+				}
+				return $result;
 			});
 	}
 
