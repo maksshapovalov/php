@@ -20,14 +20,7 @@ class Controller
 			}
 			else
 			{
-				if(isset($_POST['html']))
-				{
-					file_put_contents('google_v2.txt', $_POST['html']);
-				}
-				else
-				{
-					$this->pageDefault();	
-				}
+				$this->pageDefault();	
 			}
 				
 	    }	
