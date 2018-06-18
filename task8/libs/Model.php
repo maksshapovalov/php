@@ -39,7 +39,9 @@ class Model
 	{
 		$request = urlencode($request);
 		$this->data['response'] = $this->curlGetContents('https://www.google.com/search?q='.$request.'&oq='.$request."&cr=countryRU");
+		//file_put_contents('google.html',$this->data['response']);
 		$this->data['search'] = $this->getSearch($this->data['response']['html']);
+		
 		return true;
 	}
 	
@@ -48,13 +50,13 @@ class Model
 		$error_page = array();
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0)");   
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // Автоматом идём по редиректам
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Не проверять SSL сертификат
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); // Не проверять Host SSL сертификата
-		curl_setopt($ch, CURLOPT_URL, $page_url); // Куда отправляем
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_URL, $page_url);
 		curl_setopt($ch, CURLOPT_HEADER, 0); 
 		curl_setopt($ch, CURLOPT_REFERER, "http://www.google.com/"); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Возвращаем, но не выводим на экран результат
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$response['html'] = curl_exec($ch);
 		$info = curl_getinfo($ch);
 		if($info['http_code'] != 200 && $info['http_code'] != 404)
@@ -79,8 +81,22 @@ class Model
 			->filter('#ires div.g')
 			->each(function (crawler $divG) 
 			{
-				$result['href_title']= $divG->filter('a')->text();
-				$result['href'] = $divG->filter('a')->attr('href');
+				if (count($divG->filter('a')))
+				{
+					$result['href_title']= $divG->filter('a')->text();
+				}
+				else
+				{
+					return false;
+				}
+				if (count($divG->filter('a')))
+				{
+					$result['href'] = $divG->filter('a')->attr('href');
+				}
+				else
+				{
+					return false;
+				}
 				$class = $divG->attr('class');
 				if ($class!=='g')
 				{
